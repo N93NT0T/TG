@@ -23,9 +23,7 @@ async def allowed(_, __, message):
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited) 
 async def gen_link_s(bot, message):
 
-    file_id, ref = unpack_new_file_id(file_id)
-    string = 'filep_'
-    string += file_id
+    string = f"{f_msg_id}_{l_msg_id}_{chat_id}_{cmd.lower().strip()}"
     outstr = base64.urlsafe_b64encode(string.encode("ascii")).decode().strip("=")
     await message.reply(f"Here is your Link:\nhttps://t.me/{temp.U_NAME}?start={outstr}")
     
