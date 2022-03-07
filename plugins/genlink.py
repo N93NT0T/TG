@@ -20,19 +20,11 @@ async def allowed(_, __, message):
         return True
     return False
 
-#@Client.on_message(filters.command(['link', 'plink']) & filters.create(allowed))
 @Client.on_message((filters.document|filters.video|filters.audio|filters.photo) & filters.incoming & ~filters.edited) 
 async def gen_link_s(bot, message):
-    replied = message.reply_to_message
-    if not replied:
-        return await message.reply('Reply to a message to get a shareable link.')
-    file_type = replied.media
-    if file_type not in ["video", 'audio', 'document']:
-        return await message.reply("Reply to a supported media")
-    if message.has_protected_content and message.chat.id not in ADMINS:
-        return await message.reply("okDa")
-    file_id, ref = unpack_new_file_id((getattr(replied, file_type)).file_id)
-    string = 'filep_' if message.text.lower().strip() == "/plink" else 'file_'
+
+    file_id, ref = unpack_new_file_id(file_id)
+    string = 'filep_'
     string += file_id
     outstr = base64.urlsafe_b64encode(string.encode("ascii")).decode().strip("=")
     await message.reply(f"Here is your Link:\nhttps://t.me/{temp.U_NAME}?start={outstr}")
