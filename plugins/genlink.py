@@ -25,12 +25,13 @@ async def allowed(_, __, message):
 async def gen_link_s(bot, message):
     if message.has_protected_content and message.chat.id not in ADMINS:
         return await message.reply("Protect Content ")
-        reply_text = await message.reply_text("Please Wait...!", quote = True)
-
-    string = f"{message.chat.id}_{message.message_id}"
+        file_type = message.document or message.video or message.audio or message.photo
+    file_id, ref = unpack_new_file_id((getattr(file_type)).file_id)
+    string = 'filep_' if message.text.lower().strip() == "/plink" else 'file_'
+    string += file_id
     outstr = base64.urlsafe_b64encode(string.encode("ascii")).decode().strip("=")
-    await reply_text.edit(f"Here is your Link:\nhttps://t.me/{temp.U_NAME}?start={outstr}")
-    
+    await message.reply(f"Here is your Link:\nhttps://t.me/{temp.U_NAME}?start={outstr}")
+
 
 
 
