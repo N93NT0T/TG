@@ -25,7 +25,7 @@ async def gen_link_s(bot, message):
     if message.has_protected_content and message.chat.id not in ADMINS:
         return await message.reply("Protect Content ")
 
-    string = f"{message.chat.id}_{message.message_id}")
+    string = f"{message.chat.id}_{message.message_id}"
     outstr = base64.urlsafe_b64encode(string.encode("ascii")).decode().strip("=")
     await message.reply(f"Here is your Link:\nhttps://t.me/{temp.U_NAME}?start={outstr}")
     
