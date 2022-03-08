@@ -25,7 +25,7 @@ async def allowed(_, __, message):
 async def gen_link_s(bot, message):
     if message.has_protected_content and message.chat.id not in ADMINS:
         return await message.reply("Protect Content ")
-        file_type = message.document or message.video or message.audio or message.photo
+        file_type = message.media
     file_id, ref = unpack_new_file_id((getattr(file_type)).file_id)
     string = 'filep_' if message.text.lower().strip() == "/plink" else 'file_'
     string += file_id
